@@ -28,7 +28,6 @@ class Solution
             d = front.hd;
             Node node = front.node;
  
-            // insert this node's data in ArrayList of hash
             if (!map.containsKey(d)) map.put(d,node.data);
             
             if (node.left != null)
