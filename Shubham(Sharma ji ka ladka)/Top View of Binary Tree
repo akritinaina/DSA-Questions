@@ -29,8 +29,8 @@ class Solution
             Node node = front.node;
  
             // insert this node's data in ArrayList of hash
-            map.put(d,node.data);
- 
+            if (!map.containsKey(d)) map.put(d,node.data);
+            
             if (node.left != null)
                 q.add(new Pair(node.left, d - 1));
             if (node.right != null)
