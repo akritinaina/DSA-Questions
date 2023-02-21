@@ -15,7 +15,7 @@ class Solution
         ArrayList <Integer> res = new ArrayList<Integer>();
         if (root == null) return res;
         // Create a map to store vertical order in map with key as horizontal distance and value as Node value at that horizontal distance
-        HashMap<Integer, Integer> map = new HashMap<>();
+        HashMap<Integer, ArrayList<Integer>> map = new HashMap<>();
         int d = 0;
         // Create queue to do level order traversal. Every item of queue contains node and horizontal distance
         Queue<Pair> q = new ArrayDeque<>();
@@ -29,7 +29,8 @@ class Solution
             Node node = front.node;
  
             // insert this node's data in ArrayList of hash
-            map.put(d,node.data);
+            if (!map.containsKey(d)) map.put(d, new ArrayList<>());
+            map.get(d).add(node.data);
  
             if (node.left != null)
                 q.add(new Pair(node.left, d - 1));
