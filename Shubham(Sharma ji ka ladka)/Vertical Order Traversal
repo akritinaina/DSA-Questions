@@ -1,0 +1,53 @@
+class Solution
+{
+    static class Pair {
+        Node node;
+        int hd;
+        Pair(Node node, int hd)
+        {
+            this.node = node;
+            this.hd = hd;
+        }
+    }
+    //Function to find the vertical order traversal of Binary Tree.
+    static ArrayList <Integer> verticalOrder(Node root)
+    {
+        ArrayList <Integer> res = new ArrayList<Integer>();
+        if (root == null) return res;
+        // Create a map to store vertical order in map with key as horizontal distance and value as Node value at that horizontal distance
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int d = 0;
+        // Create queue to do level order traversal. Every item of queue contains node and horizontal distance
+        Queue<Pair> q = new ArrayDeque<>();
+        q.add(new Pair(root, d));
+        // mn and mx contain the minimum and maximum horizontal distance from root
+        int mn = 0, mx = 0;
+        while (!q.isEmpty()) {
+            // pop from queue front
+            Pair front = q.poll();
+            d = front.hd;
+            Node node = front.node;
+ 
+            // insert this node's data in ArrayList of hash
+            map.put(d,node.data);
+ 
+            if (node.left != null)
+                q.add(new Pair(node.left, d - 1));
+            if (node.right != null)
+                q.add(new Pair(node.right, d + 1));
+ 
+            // Update mn and mx
+            mn = Math.min(mn,d);
+            mx = Math.max(mx,d);
+        }
+ 
+        // run the loop from minimum to maximum
+        // every horizontal distance hd
+        for (int i = mn; i <= mx; i++) {
+            ArrayList<Integer> tmp = map.get(i);
+            for (int j = 0; j < tmp.size(); j++)
+                res.add(tmp.get(j));
+        }
+        return res;
+    }
+}
