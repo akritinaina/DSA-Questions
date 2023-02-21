@@ -1,0 +1,24 @@
+class Tree
+{
+     public ArrayList<Integer> diagonal(Node root)
+      {
+           ArrayList<Integer> ans = new ArrayList<>();
+           Queue<Node> q = new LinkedList<>();
+           q.add(root);
+           q.add(null);
+           while(!q.isEmpty()){
+               Node front = q.poll();
+               if(front==null){
+                   if(!q.isEmpty()) q.add(null);
+               }
+               else{
+                   while(front!=null){
+                       ans.add(front.data);
+                       if(front.left!=null) q.add(front.left);
+                       front = front.right;
+                   }
+               }
+           }
+           return ans;
+      }
+}
